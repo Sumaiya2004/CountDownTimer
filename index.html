@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Down Timer</title>
+    
+<style>
+        body {
+    font-family: Arial, sans-serif;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/001/966/655/original/abstract-futuristic-technology-background-with-digital-number-timer-concept-and-countdown-vector.jpg");
+    background-position: center;
+}
+
+span{
+  color: #000000;
+}
+.container {
+    text-align: center;
+    padding:150px;
+    margin: 10px auto; 
+    max-width: 100%;
+    max-height: 100%;
+}
+
+ul{
+    text-align: start;
+}
+
+ul li{
+    font-style: oblique;
+    font-size: large;
+}
+
+h3 {
+    text-indent: 1%;
+}
+
+.timer {
+    font-size: 36px;
+    margin: 20px 0;
+}
+
+button {
+    background-color: #007bff;
+    color: rgb(0, 0, 0);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:disabled {
+    background-color: #cccccc00;
+    cursor: not-allowed;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>COUNTDOWN TIMER</h1>
+        <div class="timer">
+            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+        </div>
+        <button id="startButton">Start</button>
+        <button id="stopButton" disabled>Stop</button>
+        <button id="resetButton" disabled>Reset</button>
+    </div>
+    <script>
+    let timer;
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+        
+        const startButton = document.getElementById("startButton");
+        const stopButton = document.getElementById("stopButton");
+        const resetButton = document.getElementById("resetButton");
+        const secondsElement = document.getElementById("seconds");
+        const minutesElement = document.getElementById("minutes");
+        const hoursElement = document.getElementById("hours");
+        
+        function startTimer() {
+            timer = setInterval(() => {
+                seconds++;
+                if (seconds === 60) {
+                    seconds = 0;
+                    minutes++;
+                }
+                else if (minutes === 60){
+                    minutes = 0;
+                    hours++;
+                }
+                secondsElement.innerText = seconds < 10 ? `0${seconds}` : seconds;
+                minutesElement.innerText = minutes < 10 ? `0${minutes}` : minutes;
+                hoursElement.innerText = hours < 10 ? `0${hours}` : hours;
+            }, 1000);
+        
+            startButton.disabled = true;
+            stopButton.disabled = false;
+            resetButton.disabled = true;
+        }
+        
+        function stopTimer() {
+            clearInterval(timer);
+            startButton.disabled = false;
+            stopButton.disabled = true;
+            resetButton.disabled = false;
+        }
+        
+        function resetTimer() {
+            clearInterval(timer);
+            seconds = 0;
+            minutes = 0;
+            hourss = 0;
+            secondsElement.innerText = "00";
+            minutesElement.innerText = "00";
+            hoursElement.innerText = "00";
+            startButton.disabled = false;
+            stopButton.disabled = true;
+            resetButton.disabled = true;
+        }
+        
+        startButton.addEventListener("click", startTimer);
+        stopButton.addEventListener("click", stopTimer);
+        resetButton.addEventListener("click", resetTimer);
+        </script>
+</body>
+</html>
